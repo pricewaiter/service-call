@@ -2,12 +2,13 @@
 const expect = require('chai').expect;
 const serviceCall = require('../src').serviceCall;
 
-const retry = { max: 10, backoff: 5 };
 const goodUrl = 'service-call-example1.pricewaiter.com';
 
 describe('controlling chaos', () => {
     it('succeeds with minor chaos', (done) => {
         process.env.SERVICE_CALL_CHAOS_PERCENT = 0.30;
+        const retry = { max: 10, backoff: 5 };
+
         const example = serviceCall(goodUrl, retry).get('/posts/1');
 
         example()
@@ -19,6 +20,8 @@ describe('controlling chaos', () => {
 
     it('fails with 100% chaos', (done) => {
         process.env.SERVICE_CALL_CHAOS_PERCENT = 1.0;
+        const retry = { max: 3, backoff: 5 };
+
         const example = serviceCall(goodUrl, retry).get('/posts/1');
 
         example()
