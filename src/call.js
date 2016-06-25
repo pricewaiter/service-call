@@ -35,7 +35,7 @@ function closure(method, hostname, path, retryOptions) {
                 method: 'GET',
                 json: true,
             },
-            method,
+            { method },
             {
                 uri: path,
                 body: payload,
