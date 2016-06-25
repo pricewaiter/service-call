@@ -1,6 +1,6 @@
 
-const { expect } = require('chai');
-const { serviceCall } = require('../src');
+const expect = require('chai').expect;
+const serviceCall = require('../src').serviceCall;
 
 const retryOpts = { max: 1 };
 

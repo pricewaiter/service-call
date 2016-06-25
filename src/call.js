@@ -27,7 +27,8 @@ function discover(hostname, requestOptions, retryOptions) {
 }
 
 function closure(method, hostname, path, retryOptions) {
-    return (payload, options = {}) => {
+    return (payload, opts) => {
+        const options = opts ? opts : {}; // eslint-disable-line no-unneeded-ternary
         const requestOptions = Object.assign(
             {
                 query: {},
@@ -35,7 +36,6 @@ function closure(method, hostname, path, retryOptions) {
                 json: true,
             },
             method,
-            options,
             {
                 uri: path,
                 body: payload,
