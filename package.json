@@ -1,0 +1,34 @@
+{
+  "name": "service-call",
+  "version": "0.6.0",
+  "description": "DNS Service discover and HTTP request helper.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/pricewaiter/service-call"
+  },
+  "keywords": [
+    "service",
+    "discovery",
+    "dns",
+    "consul",
+    "http",
+    "json",
+    "microservice"
+  ],
+  "author": "PriceWaiter",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^6.2.0",
+    "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "request": "^2.72.0",
+    "retry-promise": "^1.0.0"
+  }
+}
