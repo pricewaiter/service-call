@@ -5,6 +5,10 @@ const serviceCall = require('../src').serviceCall;
 const retryOpts = { max: 1 };
 
 describe('dns resolution', () => {
+    beforeEach(() => {
+        process.env.SERVICE_CALL_CHAOS_PERCENT = '0';
+    });
+
     it('rejects with error when hostname not found', (done) => {
         const example = serviceCall('notfound.nonexistant', retryOpts).get('/');
 

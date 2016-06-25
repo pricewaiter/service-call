@@ -4,7 +4,8 @@ const retry = require('retry-promise').default;
 const log = require('debug')('pw:service_discovery');
 
 function chaosMonkeyIsMad() {
-    return process.env.NODE_ENV === 'dev' && Math.random() <= 0.25;
+    return process.env.SERVICE_CALL_CHAOS_PERCENT
+        && Math.random() < process.env.SERVICE_CALL_CHAOS_PERCENT;
 }
 
 const Services = {
