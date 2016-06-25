@@ -2,7 +2,7 @@
 const expect = require('chai').expect;
 const serviceCall = require('../src').serviceCall;
 
-const retry = { max: 4, backoff: 5 };
+const retry = { max: 10, backoff: 5 };
 const goodUrl = 'service-call-example1.pricewaiter.com';
 
 describe('controlling chaos', () => {
