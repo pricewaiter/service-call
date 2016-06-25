@@ -1,0 +1,12 @@
+{
+    "extends": "airbnb/base",
+    "rules": {
+        "indent": [2, 4],
+        "global-require": [0],
+        "no-console": [2],
+        "no-unused-expressions": [0]
+    },
+    "env": {
+        "mocha": true
+    }
+}

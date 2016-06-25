@@ -1,6 +1,6 @@
 
-const ServiceCall = require('./call');
+const serviceCall = require('./call');
 
 module.exports = {
-    ServiceCall,
+    serviceCall,
 };
