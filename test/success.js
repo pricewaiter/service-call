@@ -48,5 +48,4 @@ describe('successful calls', () => {
             done();
         });
     });
-
 });
