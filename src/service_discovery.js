@@ -9,14 +9,6 @@ function chaosMonkeyIsMad() {
 
 const Services = {
 
-    discoverFromEnv(hostnameEnvVar) {
-        const hostname = process.env[hostnameEnvVar];
-        if (!hostname) {
-            return Promise.reject(new Error(`Env var ${hostnameEnvVar} is not set.`));
-        }
-        return Services.discover(hostname);
-    },
-
     discover(serviceHostname, retryOptions) {
         if (!serviceHostname) {
             return Promise.reject(new Error('serviceHostname is required.'));
