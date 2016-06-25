@@ -12,6 +12,7 @@ describe('successful calls', () => {
 
         example()
         .then(result => {
+            expect(result.res.statusCode).to.equal(200);
             expect(result.body.id).to.equal(1);
             done();
         });
@@ -22,6 +23,7 @@ describe('successful calls', () => {
 
         example({ name: 'Posty McPostFace' })
         .then(result => {
+            expect(result.res.statusCode).to.equal(201);
             expect(result.body.id).to.equal(101);
             expect(result.body.name).to.equal('Posty McPostFace');
             done();
@@ -33,6 +35,7 @@ describe('successful calls', () => {
 
         example({ name: 'Putty McPutFace' })
         .then(result => {
+            expect(result.res.statusCode).to.equal(200);
             expect(result.body.id).to.equal(1);
             expect(result.body.name).to.equal('Putty McPutFace');
             done();
@@ -44,6 +47,7 @@ describe('successful calls', () => {
 
         example()
         .then(result => {
+            expect(result.res.statusCode).to.equal(200);
             expect(result.body).to.deep.equal({});
             done();
         });
