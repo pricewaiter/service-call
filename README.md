@@ -1,17 +1,23 @@
 # Service Call
 
-ServiceCall is a factory that returns a function that performs DNS service discovery and HTTP requests, returning a Promise.
+Perform service lookups via DNS queries and make HTTP requests to those services. Designed for [consul]() and similar service registries.
 
-## Example:
+For example you make have a service registered with consul named `stats` and available with the DNS name `service-stats.service.consul`.  Your consul DNS service should return the host and point of one or more services available in response to a `SRV` request. 
+
+## GET Example:
 
 ```javascript
 
 const serviceCall = require('service-call');
 
-const fooService = serviceCall(process.env.PRODUCTS_DNS_NAME, retryOptions).post('/v1/products');
+const listProducts = serviceCall(process.env.PRODUCTS_DNS_NAME).get('/v1/products');
 
-fooService(postBody, options)
-    .then(({ res, body }) => console.log('Product creation success!', body.id))
+const options = {
+    store_id: 42
+};
+
+listProducts({}, options)
+    .then(({ res, body }) => console.log('Products for store 42:', body.items))
     .catch(err => console.log('Service call failed!', err.message));
 ```
 
@@ -29,4 +35,18 @@ Using the [retry-promise](https://github.com/olalonde/retry-promise) package, an
     max: 10,
     backoff: 1000,
 }
+```
+
+## POST example with more retrying
+
+```javascript
+
+const serviceCall = require('service-call');
+
+const retryOptions = { max: 6, backoff: 500 };
+const createProduct = serviceCall(process.env.PRODUCTS_DNS_NAME, retryOptions).post('/v1/products');
+
+listProducts(payload)
+    .then(({ res, body }) => console.log('Product created!', body.id))
+    .catch(err => console.log('Service call failed!', err.message));
 ```
