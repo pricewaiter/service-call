@@ -1,8 +1,8 @@
 {
   "name": "service-call",
   "version": "0.6.0",
-  "description": "DNS Service discover and HTTP request helper.",
-  "main": "index.js",
+  "description": "DNS service discovery and HTTP request helper.",
+  "main": "src/index.js",
   "scripts": {
     "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*",
     "lint": "eslint src test",
@@ -13,6 +13,9 @@
   "repository": {
     "type": "git",
     "url": "github.com/pricewaiter/service-call"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
   },
   "keywords": [
     "service",
