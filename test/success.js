@@ -1,6 +1,7 @@
 
 const expect = require('chai').expect;
 const serviceCall = require('../src').serviceCall;
+const processHttpResponsePromiseFactory = require('../src/call').processHttpResponsePromiseFactory;
 
 describe('successful calls', () => {
     beforeEach(() => {
@@ -50,6 +51,19 @@ describe('successful calls', () => {
             expect(result.res.statusCode).to.equal(200);
             expect(result.body).to.deep.equal({});
             done();
+        });
+    });
+
+    it('handles empty 200 response', (done) => {
+        const resolve = (resp) => {
+            expect(resp.res.statusCode).to.equal(200);
+            expect(resp.res.body).to.not.exist;
+            done();
+        };
+        const reject = () => {};
+        const handler = processHttpResponsePromiseFactory(resolve, reject);
+        handler(undefined, {
+            statusCode: 200,
         });
     });
 });

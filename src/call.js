@@ -3,17 +3,21 @@ const retry = require('retry-promise').default;
 const request = require('request');
 const ServiceDiscovery = require('./service_discovery');
 
+function processHttpResponsePromiseFactory(resolve, reject) {
+    return (err, res) => {
+        if (err) return reject(err);
+
+        if (res.body && res.body.errors && res.body.errors.length) {
+            return reject(new Error(res.body.errors[0].message));
+        }
+
+        return resolve({ res, body: res.body });
+    };
+}
+
 function httpRequest(options) {
     return new Promise((resolve, reject) => {
-        request(options, (err, res) => {
-            if (err) return reject(err);
-
-            if (res.body.errors && res.body.errors.length) {
-                return reject(new Error(res.body.errors[0].message));
-            }
-
-            return resolve({ res, body: res.body });
-        });
+        request(options, processHttpResponsePromiseFactory(resolve, reject));
     });
 }
 
@@ -63,4 +67,7 @@ function serviceCall(hostname, retryOptions) {
     };
 }
 
-module.exports = serviceCall;
+module.exports = {
+    processHttpResponsePromiseFactory,
+    serviceCall,
+};
