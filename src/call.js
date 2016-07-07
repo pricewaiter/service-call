@@ -40,12 +40,14 @@ function closure(method, hostname, path, retryOptions) {
                 json: true,
             },
             { method },
+            opts,
             {
                 uri: path,
                 body: payload,
                 qs: options.query,
             }
         );
+        requestOptions.method = requestOptions.method.toUpperCase();
         return retry(retryOptions, () => discover(hostname, requestOptions, retryOptions));
     };
 }
