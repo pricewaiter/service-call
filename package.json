@@ -4,9 +4,9 @@
   "description": "DNS service discovery and HTTP request helper.",
   "main": "src/index.js",
   "scripts": {
-    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec --timeout 10000 ./test/*",
     "lint": "eslint src test",
-    "test-mocha": "mocha test",
+    "test-mocha": "mocha -t 10000 test",
     "test-travis": "npm run lint && npm run coverage",
     "test": "npm run lint && npm run test-mocha"
   },
