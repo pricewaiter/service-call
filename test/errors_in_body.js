@@ -20,7 +20,7 @@ describe('error handling', () => {
                 },
             ],
         })
-        .catch(err => {
+        .catch((err) => {
             expect(err.message).to.equal('Could not update at this time.');
             done();
         });

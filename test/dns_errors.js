@@ -13,7 +13,7 @@ describe('dns resolution', () => {
         const example = serviceCall('notfound.nonexistant', retryOpts).get('/');
 
         example()
-        .catch(err => {
+        .catch((err) => {
             expect(err.code).to.equal('ENOTFOUND');
             done();
         });
@@ -23,7 +23,7 @@ describe('dns resolution', () => {
         const example = serviceCall('www.pricewaiter.com', retryOpts).get('/');
 
         example()
-        .catch(err => {
+        .catch((err) => {
             expect(err.code).to.equal('ENODATA');
             done();
         });
@@ -33,7 +33,7 @@ describe('dns resolution', () => {
         const example = serviceCall(undefined, retryOpts).get('/');
 
         example()
-        .catch(err => {
+        .catch((err) => {
             expect(err.message).to.equal('serviceHostname is required.');
             done();
         });

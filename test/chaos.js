@@ -12,7 +12,7 @@ describe('controlling chaos', () => {
         const example = serviceCall(goodUrl, retry).get('/posts/1');
 
         example()
-        .then(result => {
+        .then((result) => {
             expect(result.body.id).to.equal(1);
             done();
         });
@@ -25,7 +25,7 @@ describe('controlling chaos', () => {
         const example = serviceCall(goodUrl, retry).get('/posts/1');
 
         example()
-        .catch(err => {
+        .catch((err) => {
             expect(err).exists;
             done();
         });

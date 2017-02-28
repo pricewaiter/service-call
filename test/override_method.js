@@ -11,7 +11,7 @@ describe('options can override method', () => {
         const example = serviceCall('service-call-example1.pricewaiter.com').get('/posts');
 
         example({ name: 'Posty McPostFace' }, { method: 'post' })
-        .then(result => {
+        .then((result) => {
             expect(result.res.statusCode).to.equal(201);
             expect(result.body.id).to.equal(101);
             expect(result.body.name).to.equal('Posty McPostFace');
@@ -23,7 +23,7 @@ describe('options can override method', () => {
         const example = serviceCall('service-call-example1.pricewaiter.com').get('/posts/1');
 
         example({ name: 'Putty McPutFace' }, { method: 'put' })
-        .then(result => {
+        .then((result) => {
             expect(result.res.statusCode).to.equal(200);
             expect(result.body.id).to.equal(1);
             expect(result.body.name).to.equal('Putty McPutFace');
@@ -35,7 +35,7 @@ describe('options can override method', () => {
         const example = serviceCall('service-call-example1.pricewaiter.com').get('/posts/1');
 
         example({}, { method: 'delete' })
-        .then(result => {
+        .then((result) => {
             expect(result.res.statusCode).to.equal(200);
             expect(result.body).to.deep.equal({});
             done();
