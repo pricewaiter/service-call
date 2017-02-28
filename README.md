@@ -2,18 +2,21 @@
 
 Perform service lookups via DNS queries and make HTTP requests to those services. Designed for [consul]() and similar service registries.
 
-For example you make have a service registered with consul named `stats` and available with the DNS name `service-stats.service.consul`.  Your consul DNS service should return the host and point of one or more services available in response to a `SRV` request. 
+For example you make have a service registered with consul named `stats` and available with the DNS name `service-stats.service.consul`.  Your consul DNS service should return the host and point of one or more services available in response to a `SRV` request.
 
 ## GET Example:
 
 ```javascript
 
-const serviceCall = require('service-call');
+const { serviceCall } = require('service-call');
 
 const listProducts = serviceCall(process.env.PRODUCTS_DNS_NAME).get('/v1/products');
 
+// store_id will be used as a query string in the GET request
 const options = {
-    store_id: 42
+    query: {
+        store_id: 42,
+    },
 };
 
 listProducts({}, options)
@@ -41,12 +44,17 @@ Using the [retry-promise](https://github.com/olalonde/retry-promise) package, an
 
 ```javascript
 
-const serviceCall = require('service-call');
+const { serviceCal }l = require('service-call');
 
 const retryOptions = { max: 6, backoff: 500 };
 const createProduct = serviceCall(process.env.PRODUCTS_DNS_NAME, retryOptions).post('/v1/products');
 
-listProducts(payload)
+const payload = {
+    name: 'Example Name',
+    brand: 'Example Brand',
+};
+
+createProduct(payload)
     .then(({ res, body }) => console.log('Product created!', body.id))
     .catch(err => console.log('Service call failed!', err.message));
 ```
