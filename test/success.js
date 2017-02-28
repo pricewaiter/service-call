@@ -19,6 +19,21 @@ describe('successful calls', () => {
         });
     });
 
+    it('can process GET request with query strings', (done) => {
+        const example = serviceCall('service-call-example1.pricewaiter.com').get('/posts');
+
+        example({}, {
+            query: {
+                userId: 9,
+            },
+        })
+        .then((result) => {
+            expect(result.res.statusCode).to.equal(200);
+            expect(result.body[0].userId).to.equal(9);
+            done();
+        });
+    });
+
     it('can process POST request', (done) => {
         const example = serviceCall('service-call-example1.pricewaiter.com').post('/posts');
 
