@@ -1,7 +1,8 @@
 
 const dns = require('dns');
 const retry = require('retry-promise').default;
-const log = require('debug')('pw:service_discovery');
+const log = require('debug')('service-call:dns');
+const verboseLog = require('debug')('service-call:verbose');
 
 function chaosMonkeyIsMad() {
     return process.env.SERVICE_CALL_CHAOS_PERCENT
@@ -21,15 +22,19 @@ const Services = {
 
     lookup(hostname) {
         const name = this.alterServiceName(hostname);
+        verboseLog('Looking up DNS:', name);
         return new Promise((resolve, reject) => {
             dns.resolve(name, 'SRV', (err, res) => {
-                if (err) return reject(err);
+                if (err) {
+                    log('DNS error:', err.message);
+                    return reject(err);
+                }
 
                 if (res.length > 0) {
                     return resolve(this.formatHostResult(res));
                 }
 
-                log('service-discovery fail %s worker DNS.', name);
+                log('service-call fail %s DNS.', name, res);
                 return reject(new Error(`service discovery fail; ${name}`));
             });
         });
@@ -45,9 +50,7 @@ const Services = {
 
     alterServiceName(serviceHostname) {
         if (chaosMonkeyIsMad()) {
-            const url = `${serviceHostname}.super.fake`;
-            log('CHAOS! Resolved %s to %s', serviceHostname, url);
-            return url;
+            return `${serviceHostname}.super.fake`;
         }
 
         return serviceHostname;

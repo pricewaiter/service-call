@@ -22,7 +22,7 @@ describe('successful calls', () => {
     it('can process GET request with query strings', (done) => {
         const example = serviceCall('service-call-example1.pricewaiter.com').get('/posts');
 
-        example({}, {
+        example(null, {
             query: {
                 userId: 9,
             },

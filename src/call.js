@@ -1,11 +1,17 @@
 
 const retry = require('retry-promise').default;
 const request = require('request');
+const log = require('debug')('service-call:verbose');
 const ServiceDiscovery = require('./service_discovery');
 
 function processHttpResponsePromiseFactory(resolve, reject) {
     return (err, res) => {
-        if (err) return reject(err);
+        if (err) {
+            log('HTTP error:', err.message);
+            return reject(err);
+        }
+
+        log('HTTP response statusCode:', res.statusCode);
 
         if (res.body && res.body.errors && res.body.errors.length) {
             return reject(new Error(res.body.errors[0].message));
@@ -16,6 +22,7 @@ function processHttpResponsePromiseFactory(resolve, reject) {
 }
 
 function httpRequest(options) {
+    log('service resolved to host:', options.baseUrl);
     return new Promise((resolve, reject) => {
         request(options, processHttpResponsePromiseFactory(resolve, reject));
     });
@@ -43,10 +50,15 @@ function closure(method, hostname, path, retryOptions) {
             opts,
             {
                 uri: path,
-                body: payload,
                 qs: options.query,
             }
         );
+
+        // avoid a content-length from setting emptyish body
+        if (payload) {
+            requestOptions.body = payload;
+        }
+
         requestOptions.method = requestOptions.method.toUpperCase();
         return retry(retryOptions, () => discover(hostname, requestOptions, retryOptions));
     };
