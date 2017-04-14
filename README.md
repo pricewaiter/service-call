@@ -1,5 +1,11 @@
 # Service Call
 
+[![npm package](https://nodei.co/npm/service-call.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/service-call/)
+
+[![Build status](https://img.shields.io/travis/pricewaiter/service-call/master.svg?style=flat-square)](https://travis-ci.org/pricewaiter/service-call)
+[![Coverage](https://img.shields.io/coveralls/pricewaiter/service-call.svg?style=flat-square)](https://coveralls.io/r/pricewaiter/service-call)
+[![Dependency Status](https://img.shields.io/david/pricewaiter/service-call.svg?style=flat-square)](https://david-dm.org/pricewaiter/service-call)
+
 Perform service lookups via DNS queries and make HTTP requests to those services. Designed for [consul]() and similar service registries.
 
 For example you make have a service registered with consul named `stats` and available with the DNS name `service-stats.service.consul`.  Your consul DNS service should return the host and point of one or more services available in response to a `SRV` request.
