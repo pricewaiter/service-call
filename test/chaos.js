@@ -26,7 +26,7 @@ describe('controlling chaos', () => {
 
         example()
         .catch((err) => {
-            expect(err).exists;
+            expect(err).to.exist;
             done();
         });
     });

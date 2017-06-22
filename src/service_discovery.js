@@ -1,6 +1,5 @@
 
 const dns = require('dns');
-const retry = require('retry-promise').default;
 const log = require('debug')('service-call:dns');
 const verboseLog = require('debug')('service-call:verbose');
 
@@ -11,13 +10,12 @@ function chaosMonkeyIsMad() {
 
 const Services = {
 
-    discover(serviceHostname, retryOptions) {
+    discover(serviceHostname) {
         if (!serviceHostname) {
             return Promise.reject(new Error('serviceHostname is required.'));
         }
 
-        const doLookup = () => this.lookup(serviceHostname);
-        return retry(retryOptions, doLookup);
+        return this.lookup(serviceHostname);
     },
 
     lookup(hostname) {

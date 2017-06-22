@@ -28,8 +28,8 @@ function httpRequest(options) {
     });
 }
 
-function discover(hostname, requestOptions, retryOptions) {
-    return ServiceDiscovery.discover(hostname, retryOptions)
+function discover(hostname, requestOptions) {
+    return ServiceDiscovery.discover(hostname)
     .then(serviceUrl =>
         httpRequest(Object.assign({}, requestOptions, {
             baseUrl: serviceUrl,
@@ -60,7 +60,7 @@ function closure(method, hostname, path, retryOptions) {
         }
 
         requestOptions.method = requestOptions.method.toUpperCase();
-        return retry(retryOptions, () => discover(hostname, requestOptions, retryOptions));
+        return retry(retryOptions, () => discover(hostname, requestOptions));
     };
 }
 
