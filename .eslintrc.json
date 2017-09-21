@@ -4,11 +4,16 @@
         "indent": [2, 4],
         "global-require": [0],
         "no-console": [2],
+        "no-unused-expressions": [0],
         "comma-dangle": ["error", {
             "objects": "always-multiline",
             "imports": "always-multiline",
             "exports": "always-multiline",
             "functions": "ignore"
-        }]
+        }],
+        "prefer-destructuring": [0]
+    },
+    "env": {
+        "mocha": true
     }
 }

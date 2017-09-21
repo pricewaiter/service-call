@@ -32,11 +32,10 @@ function httpRequest(options) {
 
 function discover(hostname, requestOptions) {
     return ServiceDiscovery.discover(hostname)
-    .then(serviceUrl =>
-        httpRequest(Object.assign({}, requestOptions, {
-            baseUrl: serviceUrl,
-        }))
-    );
+        .then(serviceUrl =>
+            httpRequest(Object.assign({}, requestOptions, {
+                baseUrl: serviceUrl,
+            })));
 }
 
 function closure(method, hostname, path, retryOptions) {

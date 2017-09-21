@@ -22,9 +22,9 @@ describe('error codes', () => {
         const example = serviceCall('service-call-localhost.pricewaiter.com', retryOpts).get('/bad');
 
         example({})
-        .catch((err) => {
-            expect(err.statusCode).to.equal(401);
-            done();
-        });
+            .catch((err) => {
+                expect(err.statusCode).to.equal(401);
+                done();
+            });
     });
 });
