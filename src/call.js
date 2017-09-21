@@ -14,7 +14,9 @@ function processHttpResponsePromiseFactory(resolve, reject) {
         log('HTTP response statusCode:', res.statusCode);
 
         if (res.body && res.body.errors && res.body.errors.length) {
-            return reject(new Error(res.body.errors[0].message));
+            const error = new Error(res.body.errors[0].message);
+            error.statusCode = res.statusCode;
+            return reject(error);
         }
 
         return resolve({ res, body: res.body });
