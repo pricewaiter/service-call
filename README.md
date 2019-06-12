@@ -50,7 +50,7 @@ Using the [retry-promise](https://github.com/olalonde/retry-promise) package, an
 
 ```javascript
 
-const { serviceCal }l = require('service-call');
+const { serviceCall } = require('service-call');
 
 const retryOptions = { max: 6, backoff: 500 };
 const createProduct = serviceCall(process.env.PRODUCTS_DNS_NAME, retryOptions).post('/v1/products');
