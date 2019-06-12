@@ -1,4 +1,3 @@
-
 const express = require('express');
 const expect = require('chai').expect;
 const serviceCall = require('../src').serviceCall;
@@ -19,12 +18,14 @@ describe('error codes', () => {
     });
 
     it('passes the http status code on', (done) => {
-        const example = serviceCall('service-call-localhost.pricewaiter.com', retryOpts).get('/bad');
+        const example = serviceCall(
+            'service-call-localhost.pricewaiter.com',
+            retryOpts
+        ).get('/bad');
 
-        example({})
-            .catch((err) => {
-                expect(err.statusCode).to.equal(401);
-                done();
-            });
+        example({}).catch((err) => {
+            expect(err.statusCode).to.equal(401);
+            done();
+        });
     });
 });

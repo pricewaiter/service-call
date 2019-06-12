@@ -1,4 +1,3 @@
-
 const expect = require('chai').expect;
 const serviceCall = require('../src').serviceCall;
 
@@ -17,12 +16,11 @@ describe('error handling', () => {
             errors: [
                 {
                     message: 'Could not update at this time.',
-                }
+                },
             ],
-        })
-            .catch((err) => {
-                expect(err.message).to.equal('Could not update at this time.');
-                done();
-            });
+        }).catch((err) => {
+            expect(err.message).to.equal('Could not update at this time.');
+            done();
+        });
     });
 });

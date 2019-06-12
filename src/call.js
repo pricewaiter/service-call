@@ -1,4 +1,3 @@
-
 const retry = require('retry-promise').default;
 const request = require('request');
 const log = require('debug')('service-call:verbose');
@@ -31,11 +30,13 @@ function httpRequest(options) {
 }
 
 function discover(hostname, requestOptions) {
-    return ServiceDiscovery.discover(hostname)
-        .then(serviceUrl =>
-            httpRequest(Object.assign({}, requestOptions, {
+    return ServiceDiscovery.discover(hostname).then((serviceUrl) =>
+        httpRequest(
+            Object.assign({}, requestOptions, {
                 baseUrl: serviceUrl,
-            })));
+            })
+        )
+    );
 }
 
 function closure(method, hostname, path, retryOptions) {

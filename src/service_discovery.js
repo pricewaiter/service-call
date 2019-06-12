@@ -1,15 +1,15 @@
-
 const dns = require('dns');
 const log = require('debug')('service-call:dns');
 const verboseLog = require('debug')('service-call:verbose');
 
 function chaosMonkeyIsMad() {
-    return process.env.SERVICE_CALL_CHAOS_PERCENT
-        && Math.random() < process.env.SERVICE_CALL_CHAOS_PERCENT;
+    return (
+        process.env.SERVICE_CALL_CHAOS_PERCENT &&
+        Math.random() < process.env.SERVICE_CALL_CHAOS_PERCENT
+    );
 }
 
 const Services = {
-
     discover(serviceHostname) {
         if (!serviceHostname) {
             return Promise.reject(new Error('serviceHostname is required.'));
