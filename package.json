@@ -4,7 +4,7 @@
   "description": "DNS service discovery and HTTP request helper.",
   "main": "src/index.js",
   "scripts": {
-    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec --exit --timeout 10000 ./test/*",
+    "coverage": "nyc mocha -t 10000 --exit ./test/*",
     "lint": "eslint src test",
     "test-mocha": "mocha -t 10000 --exit test",
     "test-travis": "npm run lint && npm run coverage",
@@ -30,14 +30,14 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.4",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.3",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.2.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-import": "^2.18.2",
     "express": "^4.17.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
     "prettier": "^1.18.2"
   },
   "dependencies": {
