@@ -5,7 +5,8 @@
         "global-require": [0],
         "no-console": [2],
         "no-unused-expressions": [0],
-        "prefer-destructuring": [0]
+        "prefer-destructuring": [0],
+        "prefer-object-spread": [0]
     },
     "env": {
         "mocha": true
