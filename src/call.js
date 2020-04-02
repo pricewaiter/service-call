@@ -1,39 +1,47 @@
 const retry = require('retry-promise').default;
-const request = require('request');
+const axios = require('axios');
 const log = require('debug')('service-call:verbose');
 const ServiceDiscovery = require('./service_discovery');
 
-function processHttpResponsePromiseFactory(resolve, reject) {
-    return (err, res) => {
-        if (err) {
+function processHttpResponse(axiosResult) {
+    return axiosResult
+        .catch((err) => {
             log('HTTP error:', err.message);
-            return reject(err);
-        }
+            const error = new Error(err.message);
+            error.statusCode = err.response.status;
 
-        log('HTTP response statusCode:', res.statusCode);
+            return Promise.reject(error);
+        })
+        .then((result) => {
+            log('HTTP response statusCode', result.status);
 
-        if (res.body && res.body.errors && res.body.errors.length) {
-            const error = new Error(res.body.errors[0].message);
-            error.statusCode = res.statusCode;
-            return reject(error);
-        }
+            if (
+                result.data &&
+                result.data.errors &&
+                result.data.errors.length
+            ) {
+                const error = new Error(result.data.errors[0].message);
+                error.statusCode = 400;
+                return Promise.reject(error);
+            }
 
-        return resolve({ res, body: res.body });
-    };
+            return Promise.resolve({
+                res: { statusCode: result.status, ...result },
+                body: result.data,
+            });
+        });
 }
 
 function httpRequest(options) {
     log('service resolved to host:', options.baseUrl);
-    return new Promise((resolve, reject) => {
-        request(options, processHttpResponsePromiseFactory(resolve, reject));
-    });
+    return processHttpResponse(axios(options));
 }
 
 function discover(hostname, requestOptions) {
     return ServiceDiscovery.discover(hostname).then((serviceUrl) =>
         httpRequest(
             Object.assign({}, requestOptions, {
-                baseUrl: serviceUrl,
+                baseURL: serviceUrl,
             })
         )
     );
@@ -51,14 +59,14 @@ function closure(method, hostname, path, retryOptions) {
             { method },
             opts,
             {
-                uri: path,
-                qs: options.query,
+                url: path,
+                params: options.query,
             }
         );
 
         // avoid a content-length from setting emptyish body
         if (payload) {
-            requestOptions.body = payload;
+            requestOptions.data = payload;
         }
 
         requestOptions.method = requestOptions.method.toUpperCase();
@@ -84,6 +92,6 @@ function serviceCall(hostname, retryOptions) {
 }
 
 module.exports = {
-    processHttpResponsePromiseFactory,
+    processHttpResponse,
     serviceCall,
 };
