@@ -3,6 +3,7 @@
   "version": "0.9.0",
   "description": "DNS service discovery and HTTP request helper.",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "coverage": "nyc mocha -t 10000 --exit ./test/*",
     "lint": "eslint src test",
