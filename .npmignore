@@ -1,3 +1,5 @@
 /test
 .gitignore
 *.yml
+/coverage
+/.nyc_output
