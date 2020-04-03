@@ -6,7 +6,8 @@ interface RetryOptions {
 
 interface MinimalResponse {
     statusCode: number;
-};
+    headers: any;
+}
 
 interface ServiceCallResponse<TResponse> {
     res: MinimalResponse;
