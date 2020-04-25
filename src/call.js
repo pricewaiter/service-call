@@ -8,7 +8,9 @@ function processHttpResponse(axiosResult) {
         .catch((err) => {
             log('HTTP error:', err.message);
             const error = new Error(err.message);
-            error.statusCode = err.response.status;
+            if (err.response) {
+                error.statusCode = err.response.status;
+            }
 
             return Promise.reject(error);
         })
