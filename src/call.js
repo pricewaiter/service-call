@@ -35,7 +35,7 @@ function processHttpResponse(axiosResult) {
 }
 
 function httpRequest(options) {
-    log('service resolved to host:', options.baseUrl);
+    log('service resolved to host:', options.baseURL);
     return processHttpResponse(axios(options));
 }
 
