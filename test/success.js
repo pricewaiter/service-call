@@ -74,11 +74,11 @@ describe('successful calls', () => {
     });
 
     it('handles empty 200 response', (done) => {
-        const result = () => {
-            return Promise.resolve({
+        const result = () =>
+            Promise.resolve({
                 statusCode: 200,
             });
-        };
+
         processHttpResponse(result()).then(({ res }) => {
             expect(res.statusCode).to.equal(200);
             done();
